@@ -6,4 +6,4 @@ def downloadWebImage(url):
 	fullName = str(name) + ".jpg"
 	urllib.request.urlretrieve(url, fullName)
 
-#downloadWebImage("google.com/image.jpg")
+downloadWebImage("https://www.google.com/images/srpr/logo11w.png")
