@@ -4,7 +4,7 @@ import requests
 url = "https://www.boulderhumane.org/animals/adoption/cats"
 r = requests.get(url)
 data = r.text
-soup = BeautifulSoup(data)
+soup = BeautifulSoup(data, "html.parser")
 links = []
 for link in soup.find_all("div",{"class":"views-row"}):
 	animalDatas=[]
