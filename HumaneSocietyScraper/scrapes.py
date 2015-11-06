@@ -25,33 +25,25 @@ for link in soup.find_all("div",{"class":"views-row"}):
 	for tastyData in link.find_all("div",{"class":"views-field"}):
 		if attrID == 0:
 			attr = tastyData.find("img")["src"]
-			#animalDatas.append(attr)
 			retrieveItem(attr, str(animalNum)+".jpg")
 			animalDatas.append(attr)
 		elif attrID==2: #name
 			attr = tastyData.find("a").getText()
-			#attr = attr[attr.index('>'):attr.index('<')]
-			#attr = attr[attr.find('<',2):attr.find('>',2)]
-			#print attr
 			animalDatas.append(attr)
 		elif attrID in [1,3,4]:
 			attr = tastyData.find("div",{"class":"field-content"}).getText()
-			#print attr
 			animalDatas.append(attr)
 		elif attrID == 5:
 			try:
 				attr = tastyData.find("font").getText()
 			except AttributeError:
 				attr = "None"
-			#print attr
 			animalDatas.append(attr)
 		elif 6<=attrID<=8:
 			attr = tastyData.find("span",{"class":"field-content"}).getText()
-			#print attr
 			animalDatas.append(attr)
 		attrID = attrID + 1
-	for val in animalDatas:
-
+	#for val in animalDatas: <<< this loop needs to convert all data from unicode to ascii
 	links.append(animalDatas)
 	animalNum = animalNum + 1
 print links
