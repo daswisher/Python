@@ -9,6 +9,8 @@ def retrieveItem(url, fileNameOut):
 	file = urllib.URLopener()
 	file.retrieve(url, fileNameOut)
 d = datetime.datetime.now()
+
+#Folder name is year, month, day, hour, minute, second in the following numeric setup 4,2,2,2,2,2,6
 folderName = str('{:04d}'.format(getattr(d, 'year')))+str('{:02d}'.format(getattr(d, 'month')))+str('{:02d}'.format(getattr(d, 'day')))+str('{:02d}'.format(getattr(d, 'hour')))+str('{:02d}'.format(getattr(d, 'minute')))+str('{:02d}'.format(getattr(d, 'second')))+str('{:06d}'.format(getattr(d, 'microsecond'))) 
 url = "https://www.boulderhumane.org/animals/adoption/cats"
 r = requests.get(url)
@@ -22,7 +24,6 @@ if not os.path.isdir(folderName):
 for link in soup.find_all("div",{"class":"views-row"}):
 	animalDatas=[]
 	attrID=0
-	
 	for tastyData in link.find_all("div",{"class":"views-field"}):
 		if attrID == 0:
 			attr = tastyData.find("img")["src"]
@@ -45,6 +46,7 @@ for link in soup.find_all("div",{"class":"views-row"}):
 			attr = tastyData.find("span",{"class":"field-content"}).getText()
 			animalDatas.append(str(attr))
 		attrID = attrID + 1
+	#Animal data list format: image url, image number, adoption status, name, hair, breed, personality, age, gender, animal ID number
 	links.append(animalDatas)
 	animalNum = animalNum + 1
 file = open(folderName+"/results.txt", "w")
