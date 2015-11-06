@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import urllib
 import unicodedata
+import datetime 
 
 def stripTag(element):
 	return BeautifulSoup(element, "lxml").getText()
@@ -9,6 +10,8 @@ def stripTag(element):
 def retrieveItem(url, fileNameOut):
 	file = urllib.URLopener()
 	file.retrieve(url, fileNameOut)
+d = datetime.datetime.now()
+folderName = str(getattr(d, 'day'))+"-"+str(getattr(d, 'month'))+"-"+str(getattr(d, 'year'))+"-"+str(getattr(d,'hour'))+"-"+str(getattr(d,'minute'))+"-"+str(getattr(d, 'second'))+"-"+str(getattr(d,'microsecond'))
 url = "https://www.boulderhumane.org/animals/adoption/cats"
 r = requests.get(url)
 data = r.text
