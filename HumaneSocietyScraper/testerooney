@@ -1,4 +1,4 @@
 #!/bin/bash
-rm *.jpg
+#rm *.jpg
 python scrapes.py > results.txt
 
