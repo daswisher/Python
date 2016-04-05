@@ -12,7 +12,7 @@ import usb.util
 
 # MagTek Device MSR100 Mini Swipe
 vendorid = 0x0801
-productid = 0x0001
+productid = 0x0002
 
 # Define our Character Map per Reference Manual
 # http://www.magtek.com/documentation/public/99875206-17.01.pdf
@@ -162,7 +162,7 @@ while True:
         data += results
         datalist.append(results)
         swiped = True
-
+	print results
     except usb.core.USBError as e:
         if e.args[1] == 'Operation timed out' and swiped:
             break # timeout and swiped means we are done
