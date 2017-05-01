@@ -11,6 +11,7 @@ for item in my_array:
 '''
 
 import urllib2 
+import multiprocessing
 from multiprocessing.dummy import Pool as ThreadPool 
 
 urls = [
@@ -45,3 +46,4 @@ Single thread:   14.4 seconds
 Referenced:
 http://stackoverflow.com/questions/2846653/how-to-use-threading-in-python
 '''
+print multiprocessing.cpu_count()
