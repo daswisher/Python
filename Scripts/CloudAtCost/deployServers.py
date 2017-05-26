@@ -47,19 +47,20 @@ while response.status_code != 200:
 response = json.loads(response.text)
 dataSet = response['data']
 
-for key in dataSet["used"].keys():
+for dataKey in dataSet["used"].keys():
 	try:
-		dataSet["used"][key] = int(dataSet["used"][key])
+		dataSet["used"][dataKey] = int(dataSet["used"][dataKey])
 
 	except:
-		dataSet["used"][key] = 0
+		dataSet["used"][dataKey] = 0
 
-for key in dataSet["total"].keys():
+for dataKey in dataSet["total"].keys():
 	try:
-		dataSet["total"][key] = int(dataSet["total"][key])
+		dataSet["total"][dataKey] = int(dataSet["total"][dataKey])
 
 	except:
-		dataSet["total"][key] = 0
+		dataSet["total"][dataKey] = 0
+
 cpus = dataSet['total']['cpu_total'] - dataSet['used']['cpu_used']
 rams = dataSet['total']['ram_total'] - dataSet['used']['ram_used']
 storages = dataSet['total']['storage_total'] - dataSet['used']['storage_used']
@@ -70,9 +71,31 @@ print "storage:",storages
 
 cpu = 1
 ram = rams/cpus
+while ram % 4 != 0:
+	ram -= 1
+
 storage = storages/cpus
 
+print
+print key
+print login
 print cpu
 print ram
 print storage
+print templateID
 
+#############################
+'''
+TODO:
+Make the below section loop until all available resources have been consumed
+'''
+#############################
+buildResponse = dispatcher['buildserver'](key, login, cpu, ram, storage, templateID)
+while buildResponse.status_code != 200:
+	buildResponse = dispatcher['buildserver'](key, login, cpu, ram, storage, templateID)
+
+print buildResponse.url
+print buildResponse.text
+
+taskResponse = dispatcher['listtasks'](key, login)
+print taskResponse.text
