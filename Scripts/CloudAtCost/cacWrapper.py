@@ -6,28 +6,24 @@ https://github.com/cloudatcost/api
 import json
 import requests
 
-credentialsDict = eval(open('credentials.txt', 'r').read())
-key = credentialsDict['apiKey']
-login = credentialsDict['login']
-
 baseURL = "https://panel.cloudatcost.com"
 
-def listServers(apiKey=key, apiLogin=login):
+def listServers(apiKey, apiLogin):
 	url = baseURL + "/api/v1/listservers.php?key=%s&login=%s" % (apiKey, apiLogin)
 	response = requests.get(url)
 	return response
 	
-def listTemplates(apiKey=key, apiLogin=login):
+def listTemplates(apiKey, apiLogin):
 	url = baseURL + "/api/v1/listtemplates.php?key=%s&login=%s" % (apiKey, apiLogin)
 	response = requests.get(url)
 	return response
 
-def listTasks(apiKey=key, apiLogin=login):
+def listTasks(apiKey, apiLogin):
         url = baseURL + "/api/v1/listtasks.php?key=%s&login=%s" % (apiKey, apiLogin)
         response = requests.get(url)
         return response
 
-def powerOp(apiKey=key, apiLogin=login, sid, action):
+def powerOp(apiKey, apiLogin, sid, action):
 	action = action.lower()
 	actions = ["poweron","poweroff","reset"]
 	if action in actions:
@@ -35,7 +31,7 @@ def powerOp(apiKey=key, apiLogin=login, sid, action):
 		response = requests.get(url)
 		return response
 
-def runMode(apiKey=key, apiLogin=login, sid, mode):
+def runMode(apiKey, apiLogin, sid, mode):
         mode = mode.lower()
         modes = ["normal", "safe"]
         if mode in modes:
@@ -43,22 +39,22 @@ def runMode(apiKey=key, apiLogin=login, sid, mode):
                 response = requests.get(url)
                 return response
 
-def renameServer(apiKey=key, apiLogin=login, sid, name):
+def renameServer(apiKey, apiLogin, sid, name):
 	url = baseURL + "/api/v1/renameserver.php?key=%s&login=%s&sid=%s&name=%s" % (apiKey, apiLogin, sid, name)
 	response = requests.get(url)
 	return response
 
-def modifyDns(apiKey=key, apiLogin=login, sid, hostname):
+def modifyDns(apiKey, apiLogin, sid, hostname):
         url = baseURL + "/api/v1/rdns.php?key=%s&login=%s&sid=%s&hostname=%s" % (apiKey, apiLogin, sid, hostname)
         response = requests.get(url)
         return response
 
-def serverConsole(apiKey=key, apiLogin=login, sid):
+def serverConsole(apiKey, apiLogin, sid):
         url = baseURL + "/api/v1/renameserver.php?key=%s&login=%s&sid=%s" % (apiKey, apiLogin, sid)
         response = requests.get(url)
         return response
 
-def buildServer(apiKey=key, apiLogin=login, cpu, ram, storage, os):
+def buildServer(apiKey, apiLogin, cpu, ram, storage, os):
 	#TODO:
 	#input validation
 
@@ -71,12 +67,12 @@ def buildServer(apiKey=key, apiLogin=login, cpu, ram, storage, os):
 	response = requests.get(url)
 	return response
 
-def deleteServer(apiKey=key, apiLogin=login, sid):
+def deleteServer(apiKey, apiLogin, sid):
         url = baseURL + "/api/v1/cloudpro/delete.php?key=%s&login=%s&sid=%s" % (apiKey, apiLogin, sid)
         response = requests.get(url)
         return response
 
-def listResources(apiKey=key, apiLogin=login):
+def listResources(apiKey, apiLogin):
         url = baseURL + "/api/v1/cloudpro/resources.php?key=%s&login=%s" % (apiKey, apiLogin)
         response = requests.get(url)
         return response
