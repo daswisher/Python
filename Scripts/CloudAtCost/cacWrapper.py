@@ -27,31 +27,60 @@ def powerOp(apiKey, apiLogin, sid, action):
 	action = action.lower()
 	actions = ["poweron","poweroff","reset"]
 	if action in actions:
-		url = baseURL + "/api/v1/powerop.php?key=%s&login=%s&sid=%s&action=%s" % (apiKey, apiLogin, sid, action)
-		response = requests.get(url)
+		url = baseURL + "/api/v1/powerop.php" 
+		data = {
+			'key': apiKey,
+			'login': apiLogin,
+			'sid': sid,
+			'action': action
+		}
+		response = requests.post(url,data=data)
 		return response
 
 def runMode(apiKey, apiLogin, sid, mode):
         mode = mode.lower()
         modes = ["normal", "safe"]
         if mode in modes:
-                url = baseURL + "/api/v1/runmode.php?key=%s&login=%s&sid=%s&mode=%s" % (apiKey, apiLogin, sid, mode)
-                response = requests.get(url)
+                url = baseURL + "/api/v1/runmode.php"
+		data = {
+			'key': apiKey,
+			'login': apiLogin,
+			'sid': sid,
+			'mode': mode
+		}
+		response = requests.post(url,data=data)
                 return response
 
 def renameServer(apiKey, apiLogin, sid, name):
-	url = baseURL + "/api/v1/renameserver.php?key=%s&login=%s&sid=%s&name=%s" % (apiKey, apiLogin, sid, name)
-	response = requests.get(url)
+	url = baseURL + "/api/v1/renameserver.php"
+	data = {
+		'key': apiKey,
+		'login': apiLogin,
+		'sid': sid,
+		'name': name
+	}
+	response = requests.post(url,data=data)
 	return response
 
 def modifyDns(apiKey, apiLogin, sid, hostname):
-        url = baseURL + "/api/v1/rdns.php?key=%s&login=%s&sid=%s&hostname=%s" % (apiKey, apiLogin, sid, hostname)
-        response = requests.get(url)
+        url = baseURL + "/api/v1/rdns.php"
+        data = {
+                'key': apiKey,
+                'login': apiLogin,
+                'sid': sid,
+                'hostname': hostname
+        }
+        response = requests.post(url,data=data)
         return response
 
 def serverConsole(apiKey, apiLogin, sid):
-        url = baseURL + "/api/v1/renameserver.php?key=%s&login=%s&sid=%s" % (apiKey, apiLogin, sid)
-        response = requests.get(url)
+        url = baseURL + "/api/v1/console.php"
+        data = {
+                'key': apiKey,
+                'login': apiLogin,
+                'sid': sid,
+        }
+        response = requests.post(url,data=data)
         return response
 
 def buildServer(apiKey, apiLogin, cpu, ram, storage, os):
@@ -63,13 +92,26 @@ def buildServer(apiKey, apiLogin, cpu, ram, storage, os):
 	#storage must be between 10 and 1000
 	#os mus be a value from listtemplates.php
 
-	url = baseURL + "/api/v1/cloudpro/build.php?key=%s&login=%s&cpu=%s&ram=%s&storage=%s&os=%s" % (apiKey, apiLogin, cpu, ram, storage, os)
-	response = requests.get(url)
+	url = baseURL + "/api/v1/cloudpro/build.php"
+	data = {
+		'key': apiKey,
+		'login': apiLogin,
+		'cpu': cpu,
+		'ram': ram,
+		'storage': storage,
+		'os': os
+	}
+	response = requests.post(url,data=data)
 	return response
 
 def deleteServer(apiKey, apiLogin, sid):
-        url = baseURL + "/api/v1/cloudpro/delete.php?key=%s&login=%s&sid=%s" % (apiKey, apiLogin, sid)
-        response = requests.get(url)
+        url = baseURL + "/api/v1/cloudpro/delete.php"
+        data = {
+                'key': apiKey,
+                'login': apiLogin,
+                'sid': sid,
+        }
+        response = requests.post(url,data=data)
         return response
 
 def listResources(apiKey, apiLogin):
