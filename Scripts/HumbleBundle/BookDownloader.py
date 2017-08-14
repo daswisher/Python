@@ -4,12 +4,10 @@ $('a').each(function(x){
 	var obj = $(this)[0]; 
 	if(['PDF', 'MOBI', 'EPUB','XPS', 'DOC'].includes(obj['innerText'])){
 		try{
-			//console.log(obj.parentElement.parentElement.parentElement.parentElement.parentElement.className);
-
 			var previousTitle = obj.parentElement.parentElement.parentElement.parentElement.parentElement.children[1].children[0].children[0];
-			//console.log(previousTitle);
+			var md5sum = obj.parentElement.parentElement.children[1].children[0].children[1].getAttribute("href");
 			var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "").trim().replace(/\s+/g,'-') + "." + obj['innerText'].toLowerCase();
-			allLinks[fileName] = obj['href'];
+			allLinks[fileName] = [obj['href'], md5sum];
 		}
 		catch(err){}
 	}
