@@ -1,43 +1,21 @@
 '''
-$('a').each(function(x){ 
-	var obj = $(this)[0]; 
-	if(['PDF', 'MOBI', 'EPUB','XPS', 'DOC'].includes(obj['innerText'])){
-		obj.click();
-	}
-});
-
-###########################################
-
 var allLinks = {};
 $('a').each(function(x){ 
 	var obj = $(this)[0]; 
 	if(['PDF', 'MOBI', 'EPUB','XPS', 'DOC'].includes(obj['innerText'])){
 		try{
-			var previousTitle = obj.parentElement.parentElement.children[1].children[0];
-			if(previousTitle.tagName === 'FONT'){
-				var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "") + "." + obj['innerText'].toLowerCase();
-				allLinks[fileName] = obj['href'];
+			//console.log(obj.parentElement.parentElement.parentElement.parentElement.parentElement.className);
 
-			}
+			var previousTitle = obj.parentElement.parentElement.parentElement.parentElement.parentElement.children[1].children[0].children[0];
+			//console.log(previousTitle);
+			var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "").trim().replace(/\s+/g,'-') + "." + obj['innerText'].toLowerCase();
+			allLinks[fileName] = obj['href'];
 		}
 		catch(err){}
 	}
 });
 
 console.log(JSON.stringify(allLinks));
-
-###########################################
-
-var allLinks = new Array();
-$('a').each(function(x){ 
-	var obj = $(this)[0]; 
-	if(['PDF', 'MOBI', 'EPUB','XPS', 'DOC'].includes(obj['innerText'])){
-		allLinks.push(obj['href']);
-	}
-});
-console.log(JSON.stringify(allLinks));
-
-
 '''
 
 
