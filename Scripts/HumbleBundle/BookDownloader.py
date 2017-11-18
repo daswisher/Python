@@ -10,7 +10,8 @@ $('a').each(function(x){
 	if(['PDF', 'MOBI', 'EPUB', 'XPS', 'DOC', 'PRC'].includes(obj['innerText'])){
 		try{
 			var previousTitle = obj.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[1].children[0].children[0];
-			var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "").trim().replace(/\s+/g,'-') + "." + obj['innerText'].toLowerCase();
+			var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "").trim().replace(/\s+/g,' ') + "." + obj['innerText'].toLowerCase();
+			fileName = fileName.replace(/[^a-zA-Z0-9 \-\_\.]/gm, '');
 			var md5sum = obj.parentElement.parentElement.children[1].children[0].children[1];
 			md5sum.click();
 			md5sumValue = md5sum.innerText.replace(/\s/gm, '');
@@ -37,7 +38,7 @@ import hashlib
 import multiprocessing
 from multiprocessing.dummy import Pool as ThreadPool 
 
-allLinks = '' # Copy and paste the output from the javascript between the quotes
+allLinks =  # Copy and paste the output from the javascript 
 
 def getThatBook(stuff):
 	print "Getting %s" % stuff[0]
