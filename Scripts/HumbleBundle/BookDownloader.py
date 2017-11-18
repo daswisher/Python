@@ -7,17 +7,14 @@ Usage:
 var allLinks = {};
 $('a').each(function(x){ 
 	var obj = $(this)[0]; 
-	if(['PDF', 'MOBI', 'EPUB','XPS', 'DOC'].includes(obj['innerText'])){
+	if(['PDF', 'MOBI', 'EPUB', 'XPS', 'DOC', 'PRC'].includes(obj['innerText'])){
 		try{
-			var previousTitle = obj.parentElement.parentElement.parentElement.parentElement.parentElement.children[1].children[0].children[0];
+			var previousTitle = obj.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[1].children[0].children[0];
+			var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "").trim().replace(/\s+/g,'-') + "." + obj['innerText'].toLowerCase();
 			var md5sum = obj.parentElement.parentElement.children[1].children[0].children[1];
 			md5sum.click();
-			md5sumValue = md5sum.textContent.replace(/<(?:.|\n)*?>/gm, '');
-
-			var fileName = previousTitle.innerHTML.replace(/[^\x00-\x7F]/g, "").trim().replace(/\s+/g,'-') + "." + obj['innerText'].toLowerCase();
+			md5sumValue = md5sum.innerText.replace(/\s/gm, '');
 			allLinks[fileName] = [obj['href'], md5sumValue];
-
-			//console.log(fileName + " " + md5sumValue);
 		}
 		catch(err){}
 	}
@@ -40,7 +37,7 @@ import hashlib
 import multiprocessing
 from multiprocessing.dummy import Pool as ThreadPool 
 
-allLinks = # Copy and paste the output from the javascript here
+allLinks = '' # Copy and paste the output from the javascript between the quotes
 
 def getThatBook(stuff):
 	print "Getting %s" % stuff[0]
